@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fc;
+    }
+
+    header {
+      background-color: #2c3e50;
+      padding: 20px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .data-table th, .data-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    .data-table th {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .alert {
+      background-color: #ff9800;
+      color: white;
+      padding: 15px;
+      margin-top: 20px;
+      display: none;
+      border-radius: 5px;
+    }
+
+    .btn {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <!-- Alert message will be shown here -->
+    <div class="alert" id="alertMessage">
+      New submission received!
+    </div>
+
+    <h2>Applications Submitted</h2>
+    <table class="data-table" id="applicationsTable">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Position</th>
+          <th>Experience</th>
+          <th>Resume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic data goes here -->
+      </tbody>
+    </table>
+
+    <h2>Appointments Booked</h2>
+    <table class="data-table" id="appointmentsTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Service</th>
+          <th>Date</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic data goes here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Socket.io -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+
+    // Fetch and display application data
+    function fetchApplications() {
+      fetch('/api/applications')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.querySelector('#applicationsTable tbody');
+          tableBody.innerHTML = ''; // Clear existing data
+          data.forEach(application => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${application.fullName}</td>
+              <td>${application.email}</td>
+              <td>${application.phone}</td>
+              <td>${application.position}</td>
+              <td>${application.experience}</td>
+              <td><a href="/uploads/${application.resume}" target="_blank">View Resume</a></td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching applications:', error));
+    }
+
+    // Fetch and display appointment data
+    function fetchAppointments() {
+      fetch('/api/appointments')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.querySelector('#appointmentsTable tbody');
+          tableBody.innerHTML = ''; // Clear existing data
+          data.forEach(appointment => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${appointment.name}</td>
+              <td>${appointment.email}</td>
+              <td>${appointment.mobile}</td>
+              <td>${appointment.service}</td>
+              <td>${appointment.date}</td>
+              <td>${appointment.time}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching appointments:', error));
+    }
+
+    // Listen for new submission events via socket.io
+    socket.on('newMessage', (data) => {
+      console.log('New submission received:', data);
+      document.getElementById('alertMessage').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('alertMessage').style.display = 'none';
+      }, 5000);
+      fetchApplications();
+      fetchAppointments();
+    });
+
+    // Initialize by fetching data on page load
+    fetchApplications();
+    fetchAppointments();
+  </script>
+</body>
+
+</html>
