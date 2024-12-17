@@ -259,7 +259,12 @@ app.get("/api/applications", async (req, res) => {
 // Define route for handling appointment submissions
 app.post("/api/appointments", async (req, res) => {
   try {
-    const { name, email, mobile, service, date, time, message } = req.body;
+    const { name, email, mobile, service, date, time, message, extra_field } = req.body;
+
+    // Honeypot validation
+ if (extra_field) {
+  return res.status(400).json({ error: "Spam submission detected." });
+}
 
     // Check if an appointment already exists with the same email
     const existingAppointment = await Appointment.findOne({ email });
@@ -439,6 +444,10 @@ app.get('/logout', (req, res) => {
   });
 });
 
+
+app.get('/contact', (req,res) =>{
+  res.sendFile('contact.html', { root: 'public' });
+})
 
 // Start the server
 const PORT = process.env.PORT || 3000;

@@ -274,6 +274,11 @@
                                 required
                               ></textarea>
                             </div>
+                            <!-- Honeypot Field -->
+    <div style="display: none;" aria-hidden="true">
+      <label for="extra_field">Do not fill this field</label>
+      <input type="text" id="extra_field" name="extra_field" tabindex="-1" autocomplete="off">
+  </div>
                             <div class="col-12">
                               <button class="btn btn-primary w-100 py-3" type="submit">
                                 Book Appointment
