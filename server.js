@@ -257,13 +257,35 @@ app.get("/api/applications", async (req, res) => {
 });
 
 // Define route for handling appointment submissions
-app.post("/api/appointments", async (req, res) => {
+app.post('/api/appointments', async (req, res) => {
   try {
-    const { name, email, mobile, service, date, time, message, extra_field } = req.body;
+    const {
+      name,
+      email,
+      mobile,
+      service,
+      date,
+      time,
+      message,
+      extra_field, // Original honeypot
+      form_load_time, // Timing check
+      ...rest // Capture dynamic honeypot fields
+    } = req.body;
 
-    // Honeypot validation
- if (extra_field) {
-  return res.status(400).json({ error: "Spam submission detected." });
+// Enhanced Honeypot Validation
+const honeypotFields = Object.keys(rest).filter(
+  (key) => key.startsWith('user_input_check_') || key.startsWith('verify_human_')
+);
+const filledHoneypot = honeypotFields.some((key) => rest[key] && rest[key].trim() !== '');
+if (extra_field || filledHoneypot) {
+  return res.status(400).json({ error: 'Spam submission detected.' });
+}
+
+// Timing Check: Ensure at least 3 seconds have passed
+const currentTime = Math.floor(Date.now() / 1000);
+const timeElapsed = currentTime - parseInt(form_load_time || 0);
+if (!form_load_time || timeElapsed < 3) {
+  return res.status(400).json({ error: 'Submission too fast. Are you a bot?' });
 }
 
     // Check if an appointment already exists with the same email
