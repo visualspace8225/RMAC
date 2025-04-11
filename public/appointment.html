@@ -185,112 +185,125 @@
             <div class="row g-5">
                 
                 <div class="col-lg-8 wow fadeInUp application-form-wrapper p-5" data-wow-delay="0.5s">
-                    <form id="appointmentForm" method="POST" action="/api/appointments">
-                        <div class="row g-3">
-                            <div class="col-12 col-sm-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="name" 
-                                placeholder="Your Name"
-                                style="height: 55px"
-                                required
-                              />
-                            </div>
-                            <div class="col-12 col-sm-6">
-                              <input
-                                type="email"
-                                class="form-control"
-                                name="email" 
-                                placeholder="Your Email"
-                                style="height: 55px"
-                                required
-                              />
-                            </div>
-                            <div class="col-12 col-sm-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="mobile" 
-                                placeholder="Your Mobile"
-                                style="height: 55px"
-                                maxlength="10"
-                                required
-                              />
-                            </div>
-                            <div class="col-12 col-sm-6">
-                              <select class="form-select" name="service" style="height: 55px" required>
-                                <option value="" disabled selected>Choose Service</option>
-                                <option value="maintenance">Company Maintenance Works</option>
-                                <option value="aluminium_fabrication">Aluminium Fabrication Works</option>
-                                <option value="painting">Painting Works</option>
-                                <option value="electrical">Electrical Works</option>
-                                <option value="civil_construction">Civil Construction Works (RCC Works)</option>
-                                <option value="ms_fabrication">Light & Heavy MS Fabrication Works</option>
-                                <option value="industrial_shed">Industrial Shed Construction Works</option>
-                                <option value="plumbing">Plumbing Works</option>
-                                <option value="road_works">Road Works</option>
-                                <option value="industrial_flooring">Industrial Flooring Works</option>
-                                <option value="vinyl_flooring">Vinyl Flooring Works</option>
-                                <option value="other">Others</option>
-                              </select>
-                            </div>
-                            
-                            
-                            <div class="col-12 col-sm-6">
-                              <div class="date" id="date" data-target-input="nearest">
-                                <input
-                                  type="text"
-                                  class="form-control datetimepicker-input"
-                                  name="date" 
-                                  placeholder="Date of Appointment"
-                                  data-target="#date"
-                                  data-toggle="datetimepicker"
-                                  style="height: 55px"
-                                  required
-                                />
-                              </div>
-                            </div>
-                            <!-- <div class="col-12 col-sm-6">
-                              <div class="time" id="time" data-target-input="nearest">
-                                <input
-                                  type="text"
-                                  class="form-control datetimepicker-input"
-                                  name="time" 
-                                  placeholder="Choose Time"
-                                  data-target="#time"
-                                  data-toggle="datetimepicker"
-                                  style="height: 55px"
-                                  required
-                                />
-                              </div>
-                            </div> -->
-                            <div class="col-12">
-                              <textarea
-                                class="form-control"
-                                name="message" 
-                                rows="5"
-                                placeholder="Message"
-                                required
-                              ></textarea>
-                            </div>
-                            <!-- Honeypot Field -->
-    <div style="display: none;" aria-hidden="true">
-      <label for="extra_field">Do not fill this field</label>
-      <input type="text" id="extra_field" name="extra_field" tabindex="-1" autocomplete="off">
-  </div>
-                            <div class="col-12">
-                              <button class="btn btn-primary w-100 py-3" type="submit">
-                                Book Appointment
-                              </button>
+                  <form id="appointmentForm" method="POST" action="/api/appointments">
+                    <div class="row g-3">
+                      <div class="col-12 col-sm-6">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="name"
+                          placeholder="Your Name"
+                          style="height: 55px"
+                          required
+                        />
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <input
+                          type="email"
+                          class="form-control"
+                          name="email"
+                          placeholder="Your Email"
+                          style="height: 55px"
+                          required
+                        />
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="mobile"
+                          placeholder="Your Mobile"
+                          style="height: 55px"
+                          maxlength="10"
+                          required
+                        />
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <select class="form-select" name="service" style="height: 55px" required>
+                          <option value="" disabled selected>Choose Service</option>
+                          <option value="maintenance">Company Maintenance Works</option>
+                          <option value="aluminium_fabrication">Aluminium Fabrication Works</option>
+                          <option value="painting">Painting Works</option>
+                          <option value="electrical">Electrical Works</option>
+                          <option value="civil_construction">Civil Construction Works (RCC Works)</option>
+                          <option value="ms_fabrication">Light & Heavy MS Fabrication Works</option>
+                          <option value="industrial_shed">Industrial Shed Construction Works</option>
+                          <option value="plumbing">Plumbing Works</option>
+                          <option value="road_works">Road Works</option>
+                          <option value="industrial_flooring">Industrial Flooring Works</option>
+                          <option value="vinyl_flooring">Vinyl Flooring Works</option>
+                          <option value="other">Others</option>
+                        </select>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div class="date" id="date" data-target-input="nearest">
+                          <input
+                            type="text"
+                            class="form-control datetimepicker-input"
+                            name="date"
+                            placeholder="Date of Appointment"
+                            data-target="#date"
+                            data-toggle="datetimepicker"
+                            style="height: 55px"
+                            required
+                          />
                         </div>
+                      </div>
+                      <div class="col-12">
+                        <textarea
+                          class="form-control"
+                          name="message"
+                          rows="5"
+                          placeholder="Message"
+                          required
+                        ></textarea>
+                      </div>
+                      <!-- Enhanced Honeypot Fields -->
+                      <div class="honeypot-field" style="display: none;" aria-hidden="true">
+                        <label for="user_input_check_927">Leave this blank</label>
+                        <input
+                          type="text"
+                          id="user_input_check_927"
+                          name="user_input_check_927"
+                          tabindex="-1"
+                          autocomplete="off"
+                        />
+                      </div>
+                      <div class="honeypot-field" style="display: none;" aria-hidden="true">
+                        <label for="verify_human_384">Do not fill this</label>
+                        <input
+                          type="text"
+                          id="verify_human_384"
+                          name="verify_human_384"
+                          tabindex="-1"
+                          autocomplete="off"
+                        />
+                      </div>
+                      <!-- Hidden Timestamp Field for Timing Check -->
+                      <input type="hidden" name="form_load_time" id="form_load_time" value="">
+                      <!-- Original Honeypot Field (Kept for Backward Compatibility) -->
+                      <div style="display: none;" aria-hidden="true">
+                        <label for="extra_field">Do not fill this field</label>
+                        <input
+                          type="text"
+                          id="extra_field"
+                          name="extra_field"
+                          tabindex="-1"
+                          autocomplete="off"
+                        />
+                      </div>
+                      <div class="col-12">
+                        <button class="btn btn-primary w-100 py-3" type="submit">
+                          Book Appointment
+                        </button>
+                      </div>
                     </div>
-                    </form>
+                  </form>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-    <!-- Appointment End -->
+          </div>
+          <!-- Appointment End -->
         
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 2px; margin: 0;">
         <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3">
